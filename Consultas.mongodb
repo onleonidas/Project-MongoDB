@@ -1,0 +1,10 @@
+use("DadosCopa")
+ 
+// Find para encontrar o grupo A
+db.Grupo.find( { nome: "A" } );
+
+//Rename collections
+db.Grupo.renameCollection("Grupos");
+ 
+//quantos grupos tem?
+db.Grupos.find().count();

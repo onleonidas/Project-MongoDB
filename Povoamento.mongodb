@@ -1,0 +1,580 @@
+use ("test");
+
+db.getCollectionNames().forEach(function(c) { if (c.indexOf("system.") == -1) db[c].drop(); })
+
+db.createCollection("Estadios");
+
+db.Estadios.insertMany([ 
+{ nome: "Estádio Lujniki",
+  capacidade: 78011,
+  localizacao: "Moscou"
+},
+
+{ nome: "Arena Otkrytie",
+  capacidade: 44190,
+  localizacao: "Moscou"
+},
+
+{ nome: "Estádio Krestovsky",
+  capacidade: 64468,
+  localizacao: "São Petersburgo"
+},
+
+{ nome: "Estádio de Kaliningrado",
+  capacidade: 33973,
+  localizacao: "Kaliningrado"
+},
+
+{ nome: "Estádio de Níjni Novgorod",
+  capacidade: 43319,
+  localizacao: "Níjni Novgorod"
+},
+
+{ nome: "Arena Volgogrado",
+  capacidade: 43713,
+  localizacao: "Volgogrado"
+},
+
+{ nome: "Estádio Central",
+  capacidade: 33061,
+  localizacao: "Ecaterimburgo"
+},
+
+{ nome: "Estádio Olímpico de Fisht",
+  capacidade: 44287,
+  localizacao: "Sóchi"
+},
+
+{ nome: "Arena Rostov",
+  capacidade: 43472,
+  localizacao: "Rostov"
+},
+
+{ nome: "Arena Mordovia",
+  capacidade: 41685,
+  localizacao: "Saransk"
+},
+
+{ nome: "Estádio de Samara",
+  capacidade: 41970,
+  localizacao: "Samara"
+},
+
+{ nome: "Arena Kazan",
+  capacidade: 42873,
+  localizacao: "Kazan"
+}
+]);
+
+db.createCollection("Grupo");
+
+db.Grupo.insertMany([
+{
+  nome: "A",
+  selecoes: {
+    "Russia": '2',
+    "Arábia Saudita": '3',
+    "Egito": '4',
+    "Uruguai": '1'
+  }
+},
+
+{
+  nome: "B",
+  selecoes: {
+    "Portugal": '2',
+    "Espanha": '1',
+    "Marrocos": '4',
+    "Irã": '3'
+  }
+},
+
+{
+  nome: "C",
+  selecoes: {
+    "França": '1',
+    "Austrália": '4',
+    "Peru": '3',
+    "Dinamarca": '2'
+  }
+},
+
+{
+  nome: "D",
+  selecoes: {
+    "Argentina": '2',
+    "Islândia": '4',
+    "Croácia": '1',
+    "Nigéria": '3'
+  }
+},
+
+{
+  nome: "E",
+  selecoes: {
+    "Brasil": '1',
+    "Suiça": '2',
+    "Costa Rica": '4',
+    "Sérvia": '3'
+  }
+},
+
+{
+  nome: "F",
+  selecoes: {
+    "Alemanha": '4',
+    "México": '2',
+    "Suécia": '1',
+    "Coreia do Sul": '3'
+  }
+},
+
+{
+  nome: "G",
+  selecoes: {
+    "Bélgica": '1',
+    "Panamá": '4',
+    "Tunísia": '3',
+    "Inglaterra": '2'
+  }
+},
+
+{
+  nome: "H",
+  selecoes: {
+    "Polônia": '4',
+    "Senegal": '3',
+    "Colômbia": '1',
+    "Japão": '2'
+  }
+}
+]);
+
+db.createCollection("Estatisticas");
+
+db.Estatisticas.insertOne({
+  artilheiros: {
+    "1": "Harry Kane - 6 gols",
+    "2": "Antoine Griezmann - 4 gols",
+    "3": "Romelu Lukaku - 4 gols"
+  },
+  campeão: "França",
+  vice: "Croácia",
+  bronze: "Bélgica",
+  melhor_jogador: "Luka Modric",
+  revelacao: "Kylian Mbappe",
+  melhor_goleiro: "Thibaut Courtois",
+  selecao: {
+    "goleiro": "Thibaut Courtois",
+    "defesa": ["Yerry Mina", "Andreas Granqvist", "Raphaël Varane", "Thiago Silva"],
+    "meio": ["Luka Modrić", "Philippe Coutinho", "Denis Cheryshev"],
+    "ataque": ["Eden Hazard", "Antoine Griezmann", "Harry Kane"]
+  }
+
+})
+
+db.createCollection("Selecoes");
+
+db.Selecoes.insertMany( [
+{
+  nome: "Russia", 
+  pt_fase_grupo: 6,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'A'}, {'_id': 0})
+},
+
+{
+  nome: "Arábia Saudita", 
+  pt_fase_grupo: 3,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'A'}, {'_id': 0})
+},
+
+{
+  nome: "Egito",
+  pt_fase_grupo: 0,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'A'}, {'_id': 0})
+},
+
+{
+  nome: "Uruguai",
+  pt_fase_grupo: 9,
+  titulos: 2,
+  grupo: db.Grupo.findOne({nome: 'A'}, {'_id': 0})
+},
+
+{
+  nome: "Portugal",
+  pt_fase_grupo: 5,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'B'}, {'_id': 0})
+},
+
+{
+  nome: "Espanha",
+  pt_fase_grupo: 5,
+  titulos: 1,
+  grupo: db.Grupo.findOne({nome: 'B'}, {'_id': 0})
+},
+
+{
+  nome: "Marracos",
+  pt_fase_grupo: 1,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'B'}, {'_id': 0})
+},
+
+{
+  nome: "Irã",
+  pt_fase_grupo: 4,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'B'}, {'_id': 0})
+},
+
+{
+  nome: "França",
+  pt_fase_grupo: 7,
+  titulos: 2,
+  grupo: db.Grupo.findOne({nome: 'C'}, {'_id': 0})
+},
+
+{
+  nome: "Austrália",
+  pt_fase_grupo: 1,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'C'}, {'_id': 0})
+},
+
+{
+  nome: "Peru",
+  pt_fase_grupo: 3,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'C'}, {'_id': 0})
+},
+
+{
+  nome: "Dinamarca",
+  pt_fase_grupo: 5,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'C'}, {'_id': 0})
+},
+
+{
+  nome: "Argentina",
+  pt_fase_grupo: 4,
+  titulos: 2,
+  grupo: db.Grupo.findOne({nome: 'D'}, {'_id': 0})
+},
+
+{
+  nome: "Islândia",
+  pt_fase_grupo: 1,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'D'}, {'_id': 0})
+},
+
+{
+  nome: "Croácia",
+  pt_fase_grupo: 9,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'D'}, {'_id': 0})
+},
+
+{
+  nome: "Nigéria",
+  pt_fase_grupo: 3,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'D'}, {'_id': 0})
+},
+
+{
+  nome: "Brasil",
+  pt_fase_grupo: 7,
+  titulos: 5,
+  grupo: db.Grupo.findOne({nome: 'E'}, {'_id': 0})
+},
+{
+  nome: "Suiça",
+  pt_fase_grupo: 5,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'E'}, {'_id': 0})
+},
+{
+  nome: "Costa Rica",
+  pt_fase_grupo: 1,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'E'}, {'_id': 0})
+},
+{
+  nome: "Sérvia",
+  pt_fase_grupo: 3,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'E'}, {'_id': 0})
+},
+{
+  nome: "Alemanha",
+  pt_fase_grupo: 3,
+  titulos: 4,
+  grupo: db.Grupo.findOne({nome: 'F'}, {'_id': 0})
+},
+{
+  nome: "México",
+  pt_fase_grupo: 6,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'F'}, {'_id': 0})
+},
+{
+  nome: "Suécia",
+  pt_fase_grupo: 6,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'F'}, {'_id': 0})
+},
+{
+  nome: "Coreia do sul",
+  pt_fase_grupo: 3,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'F'}, {'_id': 0})
+},
+
+{
+  nome: "Bélgica",
+  pt_fase_grupo: 9,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'G'}, {'_id': 0})
+},
+
+{
+  nome: "Panamá",
+  pt_fase_grupo: 0,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'G'}, {'_id': 0})
+},
+
+{
+  nome: "Tunísia",
+  pt_fase_grupo: 3,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'G'}, {'_id': 0})
+},
+
+{
+  nome: "Inglaterra",
+  pt_fase_grupo: 6,
+  titulos: 1,
+  grupo: db.Grupo.findOne({nome: 'G'}, {'_id': 0})
+},
+
+{
+  nome: "Polônia",
+  pt_fase_grupo: 3,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'H'}, {'_id': 0})
+},
+
+{
+  nome: "Senegal",
+  pt_fase_grupo: 4,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'H'}, {'_id': 0})
+},
+
+{
+  nome: "Colômbia",
+  pt_fase_grupo: 6,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'H'}, {'_id': 0})
+},
+
+{
+  nome: "Japão",
+  pt_fase_grupo: 4,
+  titulos: 0,
+  grupo: db.Grupo.findOne({nome: 'H'}, {'_id': 0})
+}
+]);
+
+db.createCollection("Confrontos");
+
+db.Confrontos.insertMany([
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-06-30T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Olímpico de Fisht'}, {'_id': 0}),
+  selecao1: "Uruguai",
+  selecao2: "Portugal",
+  gols_selecao1: 2,
+  gols_selecao2: 1,
+  status: "selecao1 venceu"
+},
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-06-30T11:10Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Arena Kazan'}, {'_id': 0}),
+  selecao1: "França",
+  selecao2: "Argentina",
+  gols_selecao1: 4,
+  gols_selecao2: 3,
+  status: "selecao1 venceu"
+},
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-07-02T11:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio de Samara'}, {'_id': 0}),
+  selecao1: "Brasil",
+  selecao2: "México",
+  gols_selecao1: 2,
+  gols_selecao2: 0,
+  status: "selecao1 venceu"
+},
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-07-02T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Arena Rostov'}, {'_id': 0}),
+  selecao1: "Bélgica",
+  selecao2: "Japão",
+  gols_selecao1: 3,
+  gols_selecao2: 2,
+  status: "selecao1 venceu"
+},
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-07-01T11:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Lujniki'}, {'_id': 0}),
+  selecao1: "Espanha",
+  selecao2: "Rússia",
+  gols_selecao1: 1,
+  gols_selecao2: 1,
+  status: "selecao2 venceu nos penaltis’"
+},
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-07-01T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio de Níjni Novgorod'}, {'_id': 0}),
+  selecao1: "Croácia",
+  selecao2: "Dinamarca",
+  gols_selecao1: 1,
+  gols_selecao2: 1,
+  status: "selecao1 venceu nos penaltis’"
+},
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-07-03T11:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Krestovsky'}, {'_id': 0}),
+  selecao1: "Suécia",
+  selecao2: "Suíça",
+  gols_selecao1: 1,
+  gols_selecao2: 0,
+  status: "selecao1 venceu’"
+},
+
+{
+  descricao: "oitavas",
+  data: new ISODate("2018-07-03T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Arena Otkrytie'}, {'_id': 0}),
+  selecao1: "Colômbia",
+  selecao2: "Inglaterra",
+  gols_selecao1: 1,
+  gols_selecao2: 1,
+  status: "selecao2 venceu nos penaltis’"
+},
+
+
+  
+{
+  descricao: "quartas",
+  data: new ISODate("2018-07-06T11:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio de Níjni Novgorod'}, {'_id': 0}),
+  selecao1: "Uruguai",
+  selecao2: "França",
+  gols_selecao1: 0,
+  gols_selecao2: 2,
+  status: "selecao2 venceu"
+},
+
+{
+  descricao: "quartas",
+  data: new ISODate("2018-07-06T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Arena Kazan'}, {'_id': 0}),
+  selecao1: "Brasil",
+  selecao2: "Bélgica",
+  gols_selecao1: 1,
+  gols_selecao2: 2,
+  status: "selecao2 venceu"
+},
+
+{
+  descricao: "quartas",
+  data: new ISODate("2018-07-07T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Olímpico de Fisht'}, {'_id': 0}),
+  selecao1: "Rússia",
+  selecao2: "Croácia",
+  gols_selecao1: 2,
+  gols_selecao2: 2,
+  status: "selecao2 venceu venceu nos penaltis"
+},
+
+{
+  descricao: "quartas",
+  data: new ISODate("2018-07-07T11:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio de Samara'}, {'_id': 0}),
+  selecao1: "Suécia",
+  selecao2: "Inglaterra",
+  gols_selecao1: 0,
+  gols_selecao2: 2,
+  status: "selecao2 venceu"
+},
+
+{
+  descricao: "semis",
+  data: new ISODate("2018-07-10T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Krestovsky'}, {'_id': 0}),
+  selecao1: "França",
+  selecao2: "Bélgica",
+  gols_selecao1: 1,
+  gols_selecao2: 0,
+  status: "selecao1 venceu"
+},
+
+{
+  descricao: "semis",
+  data: new ISODate("2018-07-11T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Lujniki'}, {'_id': 0}),
+  selecao1: "Croácia",
+  selecao2: "Inglaterra",
+  gols_selecao1: 2,
+  gols_selecao2: 1,
+  status: "selecao1 venceu"
+},
+
+{
+  descricao: "3º lugar",
+  data: new ISODate("2018-07-14T11:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Krestovsky'}, {'_id': 0}),
+  selecao1: "Bélgica",
+  selecao2: "Inglaterra",
+  gols_selecao1: 2,
+  gols_selecao2: 0,
+  status: "selecao1 venceu"
+},
+
+{
+  descricao: "Final",
+  data: new ISODate("2018-07-15T15:00Z"),
+  ref_estádio: db.Estadios.findOne({nome: 'Estádio Lujniki'}, {'_id': 0}),
+  selecao1: "França",
+  selecao2: "Croácia",
+  gols_selecao1: 4,
+  gols_selecao2: 2,
+  status: "selecao1 venceu"
+} 
+]);
+
+db.Confrontos.find()
