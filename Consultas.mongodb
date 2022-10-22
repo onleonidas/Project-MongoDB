@@ -82,5 +82,9 @@ db.Selecoes.update(
 
 db.Selecoes.find( { titulos: { $exists: false } } )
 
+//estadios que tem Arena no nome
+db.Estadios.createIndex({ nome: 'text' })
+db.Estadios.find({ $text: {$search: 'Arena'}});
+
 
 
