@@ -9,6 +9,7 @@ db.Grupo.renameCollection("Grupos");
 //quantos grupos tem?
 db.Grupos.find().count();
 
+//retorna as seleções que tem mais de 0 títulos
 db.Selecoes.aggregate([{
     $match: {
       titulos: {$gt: 0}
@@ -54,5 +55,32 @@ db.Selecoes.aggregate( [
     }
   },
 ] )
+
+//Retorna as seleções e o nome dos seus respectivos grupos
+db.Selecoes.aggregate( [ { $project : 
+{ nome : true, _id: false, grupo: "$grupo.nome"} } ] )
+
+//retorna o máximo de gols ocorridos em uma partida
+db.Confrontos.aggregate( [
+  {
+    $group: {
+        _id: false,
+       maior_gols: { $max: { $add : ['$gols_selecao1', '$gols_selecao2' ]}}
+    },
+  }
+
+] )
+
+// Retornando as 3 seleções com maior pontuação na fase de grupos
+db.Selecoes.find().sort({pt_fase_grupo: -1}).limit(3)
+
+//Deletando um campo e usando a $exists para
+//detectar quais itens em Selecoes está sem o atributo 'titulos'
+db.Selecoes.update(
+{ _id : ObjectId('63522d324b2f9088fea36bc8')},
+{$unset: { titulos : 0}});
+
+db.Selecoes.find( { titulos: { $exists: false } } )
+
 
 
