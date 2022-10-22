@@ -21,3 +21,38 @@ db.Estadios.find({$where: function() {
     return (this.nome == 'Arena Kazan')
 }
 }).pretty();
+
+// Adicionando um título para a seleção da Russia
+db.Selecoes.update(
+{ _id : ObjectId('63522d324b2f9088fea36bc8')},
+{$set: { titulos : 1}});
+
+// Desfazendo alteração anterior
+db.Selecoes.update(
+{ _id : ObjectId('63522d324b2f9088fea36bc8')},
+{$set: { titulos : 0}});
+
+//Group que retorna quantidade de gols dos playoffs
+db.Confrontos.aggregate( [
+  {
+    $group: {
+        _id: "$descricao",
+       total_gols: { $sum: { $add : [ 
+            '$gols_selecao1', '$gols_selecao2' 
+        ]}}
+    }
+  }
+] )
+
+//Retorna a média de títulos por seleções
+db.Selecoes.aggregate( [
+  {
+    $group: {
+        _id: null,
+       media: { $avg: "$titulos"},
+       total_selecoes: {$count: {}}
+    }
+  },
+] )
+
+
