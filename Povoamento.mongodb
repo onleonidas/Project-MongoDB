@@ -1,4 +1,4 @@
-use ("test");
+use ("DadosCopa");
 
 db.getCollectionNames().forEach(function(c) { if (c.indexOf("system.") == -1) db[c].drop(); })
 

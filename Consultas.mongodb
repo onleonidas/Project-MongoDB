@@ -8,3 +8,16 @@ db.Grupo.renameCollection("Grupos");
  
 //quantos grupos tem?
 db.Grupos.find().count();
+
+db.Selecoes.aggregate([{
+    $match: {
+      titulos: {$gt: 0}
+    }
+}]).sort({
+  titulos: -1
+}).pretty();
+
+db.Estadios.find({$where: function() {
+    return (this.nome == 'Arena Kazan')
+}
+}).pretty();
