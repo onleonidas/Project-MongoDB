@@ -103,3 +103,15 @@ db.Confrontos.aggregate(
    ]
 )
 
+//retorna mais informaçoes sobre o campeão 
+db.Estatisticas.aggregate( [
+   {
+     $lookup:
+       {
+         from: "Selecoes",
+         localField: "campeão",
+         foreignField: "nome",
+         as: "sobre o campeão"
+       }
+  }
+] )
