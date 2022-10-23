@@ -86,5 +86,20 @@ db.Selecoes.find( { titulos: { $exists: false } } )
 db.Estadios.createIndex({ nome: 'text' })
 db.Estadios.find({ $text: {$search: 'Arena'}});
 
-
+//retorna se um jogo teve muitos gols ou não
+db.Confrontos.aggregate(
+   [
+      {
+         $project:
+           {
+             discount:
+               {
+                 $cond: { if: { $gte: [ { $sum: { $add : [ '$gols_selecao1', '$gols_selecao2' ]}}, 3 ] }, 
+                 then: "jogo com muitos gols", 
+                 else: "jogo com poucos gols" }
+               }
+           }
+      }
+   ]
+)
 
