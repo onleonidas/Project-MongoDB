@@ -115,3 +115,9 @@ db.Estatisticas.aggregate( [
        }
   }
 ] )
+
+// adiciona Cristiano Ronaldo ao array de atacantes da selecao de ouro, simplismente pq ele merece
+db.Estatisticas.updateOne(
+   { _id : ObjectId('635321f712753ec44aa862f9')},
+   {$addToSet: {"selecao.ataque": "Cristiano Ronaldo"}}
+);
