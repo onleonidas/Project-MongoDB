@@ -121,3 +121,6 @@ db.Estatisticas.updateOne(
    { _id : ObjectId('635321f712753ec44aa862f9')},
    {$addToSet: {"selecao.ataque": "Cristiano Ronaldo"}}
 );
+
+//Find com $all que retorna a seleção que ganhou as copas de 1958 e 1962
+db.Selecoes.find( { ano_titulos: { $all: [1958, 1962] } } )
